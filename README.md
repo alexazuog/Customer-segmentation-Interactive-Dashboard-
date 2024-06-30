@@ -31,8 +31,9 @@ DimCustomer[Gender] = "M"
 ```
 ### *Total Revenue From Females* 
 ```dax
-  CALCULATE(
-    AVERAGE('dataset'[patient_sat_score]),'dataset'[patient_sat_score]<>BLANK())
+ CALCULATE([Total Revenue],
+DimCustomer[Gender] = "F"
+)
 ```
 ### *Ranking Of Customers Base On Total Revenue* 
 ```dax
