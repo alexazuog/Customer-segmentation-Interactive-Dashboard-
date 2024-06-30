@@ -8,37 +8,28 @@
 
 
 ## **Understanding The Data-set**
-#### The data set contains records of patients' emergency room visits. The data contains the date of the patient’s visit, patient ID, patient age, patient wait time before being attended to, patient satisfaction score, etc.
-
-[Click here to download the data set](https://drive.google.com/file/d/1h7SHRhKeP9jP1axeYRtKg-TE3UldhiYx/view)
+#### The data set contains records of customers' such as names, dates of birth, country, order details, income level, etc.
 
 ## **Data Cleaning Process** 
 - Data was exported to power query for data cleaning. 
 - The column quality was checked to assess for duplicates and missing or null values. 
 - Some columns were created to give the data context better. For example
-- The AM/PM column was created  to identify whether a patient was admitted during the day or night 
-- The date column was created by converting the date time format  to the date format 
-- The Full name was created column by merging the two columns that contain the last names and first name initials
+- The Age category column was created  to identify which age category a customer belongs to. 
+- The Full name was created column by merging the two columns that contain the last names and first names.
 ## **Exploratory Data Analysis**
 Using Dax / Calculated Column to create some important measures that could be used as  metrics in the visualization and also to give more perspective to the data
-### *% of patients that are admins*
+### *Total Transactions*
 ``` dax
-  DIVIDE(
-      COUNTROWS(
-          FILTER(
-              'dataset',
-              'dataset'[patient_admin_flag] = TRUE()
-          )
-      ),
-      [Total_Patients]
-  )
+  COUNTROWS(FactInternetSales)
 ```
 
-### *Total patient* 
+### *Total Revenue From Males* 
 ```dax
-  COUNTROWS([‘dataset’])
+CALCULATE([Total Revenue],
+DimCustomer[Gender] = "M"
+)
 ```
-### *Average satisfactory score* 
+### *Total Revenue From Females* 
 ```dax
   CALCULATE(
     AVERAGE('dataset'[patient_sat_score]),'dataset'[patient_sat_score]<>BLANK())
